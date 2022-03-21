@@ -5,7 +5,7 @@ import {IInputs, IOutputs} from "./generated/ManifestTypes";
 export class PasswordInputControl implements ComponentFramework.StandardControl<IInputs, IOutputs> {
 	private _notifyOutputChanged: () => void;
 	private _inputElement: HTMLInputElement;
-	private _eye: HTMLButtonElement;
+	//private _eye: HTMLButtonElement;
 	private _inputValue?: string;
 
 	/**
@@ -55,7 +55,7 @@ export class PasswordInputControl implements ComponentFramework.StandardControl<
 
 		// Add the text input to the DOM
 		container.appendChild(this._inputElement);
-		container.appendChild(this._eye);
+		//container.appendChild(this._eye);
 	}
 
 
