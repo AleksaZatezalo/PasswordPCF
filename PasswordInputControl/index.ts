@@ -5,7 +5,7 @@ import {IInputs, IOutputs} from "./generated/ManifestTypes";
 export class PasswordInputControl implements ComponentFramework.StandardControl<IInputs, IOutputs> {
 	private _notifyOutputChanged: () => void;
 	private _inputElement: HTMLInputElement;
-	//private _eye: HTMLButtonElement;
+	private _eye: HTMLButtonElement;
 	private _inputValue?: string;
 
 	/**
@@ -34,6 +34,7 @@ export class PasswordInputControl implements ComponentFramework.StandardControl<
 		this._inputElement.setAttribute("type", "password");
 		this._inputElement.setAttribute("class", "passwordControl");
 		this._inputElement.setAttribute("placeholder", "password");
+		this._eye = document.createElement("button");
 
 
 		// Extract the input value and update the input element
@@ -43,21 +44,27 @@ export class PasswordInputControl implements ComponentFramework.StandardControl<
 		// Attach on change event handler
 		this._inputElement.addEventListener("blur", this.onBlur);
 
-		// Creating a Button that will Toggle Password Input
-		// this._eye = document.createElement("button");
-		// this._eye.addEventListener("click", function () {
-		// 	const type = this._inputElement.getAttribute("type") === "password" ? "text" : "password";
-		// 	this._inputElement.setAttribute("type", type);
+		//Creating a Button that will Toggle Password Input		 	
 				
 		// 	// toggle the icon
-		// });
+		//});
 
 
 		// Add the text input to the DOM
 		container.appendChild(this._inputElement);
-		//container.appendChild(this._eye);
+		container.appendChild(this._eye);
 	}
 
+	// public toggleView(){
+	// 	if (this._inputElement.getAttribute("type") === "password"){
+	// 		this._inputElement.setAttribute("type", "text");
+	// 	} else {
+	// 		this._inputElement.setAttribute("type", "password");
+	// 	}
+		
+		// this._inputElement.setAttribute("type", type);
+		// toggle the icon
+	}
 
 	public updateView(context: ComponentFramework.Context<IInputs>): void {
 		// Extract the input value and update the input element
