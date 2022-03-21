@@ -1,6 +1,9 @@
 import {IInputs, IOutputs} from "./generated/ManifestTypes";
 
 export class PasswordInputControl implements ComponentFramework.StandardControl<IInputs, IOutputs> {
+	private _notifyOutputChanged: () => void;
+	private _inputElement: HTMLInputElement;
+	private _inputValue?: string;
 
 	/**
 	 * Empty constructor.
@@ -20,34 +23,53 @@ export class PasswordInputControl implements ComponentFramework.StandardControl<
 	 */
 	public init(context: ComponentFramework.Context<IInputs>, notifyOutputChanged: () => void, state: ComponentFramework.Dictionary, container:HTMLDivElement): void
 	{
-		// Add control initialization code
+
+		this._notifyOutputChanged = notifyOutputChanged;
+
+		// Create HTML text input element
+		this._inputElement = document.createElement("input");
+		this._inputElement.setAttribute("type", "password");
+		this._inputElement.setAttribute("class", "passwordControl");
+		this._inputElement.setAttribute("placeholder", "password");
+
+		// Extract the input value and update the input element
+		this._inputValue = context.parameters.inputValue.raw || "";
+		this._inputElement.value = this._inputValue;
+
+		// Attach on change event handler
+		this._inputElement.addEventListener("blur", this.onBlur);
+
+		// Add the text input to the DOM
+		container.appendChild(this._inputElement);	
 	}
 
 
-	/**
-	 * Called when any value in the property bag has changed. This includes field values, data-sets, global values such as container height and width, offline status, control metadata values such as label, visible, etc.
-	 * @param context The entire property bag available to control via Context Object; It contains values as set up by the customizer mapped to names defined in the manifest, as well as utility functions
-	 */
-	public updateView(context: ComponentFramework.Context<IInputs>): void
-	{
-		// Add code to update control view
+	public updateView(context: ComponentFramework.Context<IInputs>): void {
+		// Extract the input value and update the input element
+		this._inputValue = context.parameters.inputValue.raw || "";
+		this._inputElement.value = this._inputValue;
 	}
 
-	/**
-	 * It is called by the framework prior to a control receiving new data.
+	/** 
+	 * It is called by the framework prior to a control receiving new data. 
 	 * @returns an object based on nomenclature defined in manifest, expecting object[s] for property marked as “bound” or “output”
 	 */
-	public getOutputs(): IOutputs
-	{
-		return {};
+	public getOutputs(): IOutputs {
+		return {
+			inputValue: this._inputValue
+		};
 	}
 
-	/**
+	/** 
 	 * Called when the control is to be removed from the DOM tree. Controls should use this call for cleanup.
 	 * i.e. cancelling any pending remote calls, removing listeners, etc.
 	 */
-	public destroy(): void
-	{
+	public destroy(): void {
 		// Add code to cleanup control if necessary
+	}
+
+	public onBlur = (event: Event): void => {
+		this._inputValue = this._inputElement.value;
+		this._notifyOutputChanged();
 	}
 }

@@ -18,7 +18,7 @@
       -->
     </external-service-usage>
     <!-- property node identifies a specific, configurable piece of data that the control expects from CDS -->
-    <property name="controlValue" display-name-key="controlValue" description-key="Password" of-type="SingleLine.Text" usage="bound" required="true" />
+    <property name="inputValue" display-name-key="inputValue" description-key="Password" of-type="SingleLine.Text" usage="bound" required="true" />
     <!--
       Property node's of-type attribute can be of-type-group attribute.
       Example:
