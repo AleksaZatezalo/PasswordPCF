@@ -1,8 +1,11 @@
+import { Console } from "console";
 import {IInputs, IOutputs} from "./generated/ManifestTypes";
 
+// To Do: Fix Toggle Functionality & Add Bi-Eye Class Styling
 export class PasswordInputControl implements ComponentFramework.StandardControl<IInputs, IOutputs> {
 	private _notifyOutputChanged: () => void;
 	private _inputElement: HTMLInputElement;
+	private _eye: HTMLButtonElement;
 	private _inputValue?: string;
 
 	/**
@@ -32,6 +35,7 @@ export class PasswordInputControl implements ComponentFramework.StandardControl<
 		this._inputElement.setAttribute("class", "passwordControl");
 		this._inputElement.setAttribute("placeholder", "password");
 
+
 		// Extract the input value and update the input element
 		this._inputValue = context.parameters.inputValue.raw || "";
 		this._inputElement.value = this._inputValue;
@@ -39,8 +43,19 @@ export class PasswordInputControl implements ComponentFramework.StandardControl<
 		// Attach on change event handler
 		this._inputElement.addEventListener("blur", this.onBlur);
 
+		// Creating a Button that will Toggle Password Input
+		// this._eye = document.createElement("button");
+		// this._eye.addEventListener("click", function () {
+		// 	const type = this._inputElement.getAttribute("type") === "password" ? "text" : "password";
+		// 	this._inputElement.setAttribute("type", type);
+				
+		// 	// toggle the icon
+		// });
+
+
 		// Add the text input to the DOM
-		container.appendChild(this._inputElement);	
+		container.appendChild(this._inputElement);
+		container.appendChild(this._eye);
 	}
 
 
