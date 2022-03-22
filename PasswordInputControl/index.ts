@@ -43,6 +43,8 @@ export class PasswordInputControl implements ComponentFramework.StandardControl<
 
 		// Attach on change event handler
 		this._inputElement.addEventListener("blur", this.onBlur);
+		this._eye.addEventListener("click", this.toggleView);
+
 
 		//Creating a Button that will Toggle Password Input		 	
 				
@@ -55,15 +57,14 @@ export class PasswordInputControl implements ComponentFramework.StandardControl<
 		container.appendChild(this._eye);
 	}
 
-	// public toggleView(){
-	// 	if (this._inputElement.getAttribute("type") === "password"){
-	// 		this._inputElement.setAttribute("type", "text");
-	// 	} else {
-	// 		this._inputElement.setAttribute("type", "password");
-	// 	}
-		
-		// this._inputElement.setAttribute("type", type);
-		// toggle the icon
+	public toggleView(){
+		console.log("Clicked")
+		if (this._inputElement.type == "password"){
+			this._inputElement.setAttribute("type", "text");
+		} else {
+			this._inputElement.setAttribute("type", "password");
+		}
+		console.log("Clicked")
 	}
 
 	public updateView(context: ComponentFramework.Context<IInputs>): void {
