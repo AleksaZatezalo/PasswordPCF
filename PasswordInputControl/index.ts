@@ -7,6 +7,7 @@ export class PasswordInputControl implements ComponentFramework.StandardControl<
 	private _inputElement: HTMLInputElement;
 	private _eye: HTMLButtonElement;
 	private _inputValue?: string;
+	private isVisible: boolean;
 
 	/**
 	 * Empty constructor.
@@ -43,13 +44,9 @@ export class PasswordInputControl implements ComponentFramework.StandardControl<
 
 		// Attach on change event handler
 		this._inputElement.addEventListener("blur", this.onBlur);
-		this._eye.addEventListener("click", this.toggleView);
-
-
-		//Creating a Button that will Toggle Password Input		 	
-				
-		// 	// toggle the icon
-		//});
+		
+		this._eye.addEventListener("click", this.toggleState);
+	 	this.isVisible = false; //will be used onclick
 
 
 		// Add the text input to the DOM
@@ -57,20 +54,25 @@ export class PasswordInputControl implements ComponentFramework.StandardControl<
 		container.appendChild(this._eye);
 	}
 
-	public toggleView(){
+	public toggleState = (event: Event): void => {
+		// Toggles state var. False is deafult and stands for password state.
+		// True stands for visibility. 		
+		this.isVisible = !this.isVisible;
 		console.log("Clicked")
-		if (this._inputElement.type == "password"){
-			this._inputElement.setAttribute("type", "text");
-		} else {
-			this._inputElement.setAttribute("type", "password");
-		}
-		console.log("Clicked")
+		console.log(this.isVisible)
+		this._notifyOutputChanged();
 	}
 
 	public updateView(context: ComponentFramework.Context<IInputs>): void {
 		// Extract the input value and update the input element
 		this._inputValue = context.parameters.inputValue.raw || "";
 		this._inputElement.value = this._inputValue;
+
+		if (!this.isVisible){
+			this._inputElement.setAttribute("type", "password");
+		} else {
+			this._inputElement.setAttribute("type", "text");
+		}
 	}
 
 	/** 
