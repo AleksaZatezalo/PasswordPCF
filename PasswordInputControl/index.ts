@@ -58,7 +58,6 @@ export class PasswordInputControl implements ComponentFramework.StandardControl<
 		// Toggles state var. False is deafult and stands for password state.
 		// True stands for visibility. 		
 		this.isVisible = !this.isVisible;
-		console.log("Clicked")
 		console.log(this.isVisible)
 		this._notifyOutputChanged();
 	}
