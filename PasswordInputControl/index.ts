@@ -46,6 +46,7 @@ export class PasswordInputControl implements ComponentFramework.StandardControl<
 		this._inputElement.addEventListener("blur", this.onBlur);
 		
 		this._eye.addEventListener("click", this.toggleState);
+		this._eye.setAttribute("class", "eye");
 	 	this.isVisible = false; //will be used onclick
 
 
